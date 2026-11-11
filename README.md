@@ -15,12 +15,12 @@
 
 ## الخطوة 1: أنشئ الـ Codespace
 
-1. اضغط زر **Code** الأخضر في هذه الصفحة، ثم تبويب **Codespaces**.
-2. اضغط على النقاط الثلاث **⋯** ثم **New with options**.
-3. اختر **Region: Europe West** و **Machine type: 2-core**.
-4. اضغط **Create codespace**.
+1. اضغط الزر التالي:
 
-<img src="docs/images/01-create-codespace.png" width="800">
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/cybers-sa/grc-bootcamp-lab?hide_repo_select=true&ref=main&geo=EuropeWest&machine=basicLinux32gb)
+
+2. تأكد من الإعدادات: **Region: Europe West** و **Machine type: 2-core**.
+3. اضغط **Create codespace**.
 
 ## الخطوة 2: انتظر التجهيز
 
