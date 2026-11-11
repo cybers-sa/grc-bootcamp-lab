@@ -1,0 +1,21 @@
+{
+  "name": "GRC Bootcamp Lab",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "8gb",
+    "storage": "32gb"
+  },
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "CISO Assistant",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "docker compose pull -q",
+  "postAttachCommand": "bash start.sh"
+}
