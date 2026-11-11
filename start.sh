@@ -38,7 +38,7 @@ docker compose up -d >/dev/null 2>&1
 
 if [ ! -f admin-credentials.txt ]; then
   ADMIN_EMAIL="admin@bootcamp.local"
-  ADMIN_PASSWORD="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 16)"
+  ADMIN_PASSWORD="$(head -c 18 /dev/urandom | base64 | tr -d '/+=')"
   if docker compose exec -T \
       -e DJANGO_SUPERUSER_EMAIL="$ADMIN_EMAIL" \
       -e DJANGO_SUPERUSER_PASSWORD="$ADMIN_PASSWORD" \
