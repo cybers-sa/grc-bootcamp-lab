@@ -27,8 +27,8 @@ services:
       test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://backend:8000/api/health/', timeout=5)"]
       interval: 10s
       timeout: 10s
-      retries: 30
-      start_period: 150s
+      retries: 90
+      start_period: 300s
 
   huey:
     container_name: huey

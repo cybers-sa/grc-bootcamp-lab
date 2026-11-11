@@ -11,18 +11,16 @@ else
 fi
 printf 'CA_HOST=%s\nCA_URL=%s\n' "$CA_HOST" "$CA_URL" > .env
 
-FIRST_RUN=false
 if [ ! -d db ]; then
-  FIRST_RUN=true
   mkdir -p db
   sudo chown -R 1001:1001 db
 fi
 
 echo "==> Starting CISO Assistant..."
-docker compose up -d
+docker compose up -d || true
 
 echo "==> Waiting for the platform to be ready (first run can take a few minutes)..."
-for i in $(seq 1 60); do
+for i in $(seq 1 120); do
   if docker compose exec -T backend python3 -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health/', timeout=5)" >/dev/null 2>&1; then
     READY=true
     break
@@ -36,7 +34,9 @@ if [ "${READY:-false}" != "true" ]; then
   exit 1
 fi
 
-if [ "$FIRST_RUN" = "true" ]; then
+docker compose up -d >/dev/null 2>&1
+
+if [ ! -f admin-credentials.txt ]; then
   ADMIN_EMAIL="admin@bootcamp.local"
   ADMIN_PASSWORD="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 16)"
   if docker compose exec -T \
