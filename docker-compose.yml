@@ -96,10 +96,12 @@ services:
       backend:
         condition: service_healthy
     restart: unless-stopped
+    environment:
+      - CA_URL=${CA_URL:-http://localhost:8080}
     ports:
       - 8080:8080
     command: |
-      sh -c 'printf "%s\n" "{" "  auto_https off" "  servers {" "    trusted_proxies static private_ranges" "  }" "}" ":8080 {" "  reverse_proxy /api/* backend:8000" "  reverse_proxy /* frontend:3000" "}" > /etc/caddy/Caddyfile && caddy run --config /etc/caddy/Caddyfile --adapter caddyfile'
+      sh -c 'printf "%s\n" "{" "  auto_https off" "  servers {" "    trusted_proxies static private_ranges" "  }" "}" ":8080 {" "  log" "  reverse_proxy /api/* backend:8000" "  reverse_proxy /* frontend:3000 {" "    header_up Origin {env.CA_URL}" "  }" "}" > /etc/caddy/Caddyfile && caddy run --config /etc/caddy/Caddyfile --adapter caddyfile'
 
 volumes:
   qdrant_data:
